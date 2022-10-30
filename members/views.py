@@ -1,3 +1,5 @@
+from builtins import print
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -68,3 +70,17 @@ def index3(request):
 
 def index2(request):
     return HttpResponse("Hello world!")
+
+
+def hello(request):
+    template = loader.get_template('hello.html')
+    return HttpResponse(template.render({}, request))
+
+
+def hello_input(request):
+    full_name = request.POST['first']
+    template = loader.get_template('hello_world.html')
+    context = {
+        'full_name': full_name,
+    }
+    return HttpResponse(template.render(context, request))
